@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Ready - Redirecting...</title>
+    <title>File Ready - Secure Download</title>
 
-    <!-- ⚠️ PASTE YOUR MONETAG SCRIPT HERE ⚠️ -->
-    <!-- Example: <script src="//monetag.com/xyz"></script> -->
+    <!-- Monetag Popunder (Zone: 11932535) -->
+    <script>(function(s){s.dataset.zone='11932535',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+    <!-- Monetag In-Page Push (Zone: 11932538) -->
+    <script>(function(s){s.dataset.zone='11932538',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <style>
         body {
@@ -41,18 +44,22 @@
     </div>
 
     <script>
-        // URL se payload aur bot ka naam nikalna
+        // URL se payload aur bot ka naam nikal kar Telegram Deep Link banana
         const urlParams = new URLSearchParams(window.location.search);
         const startParam = urlParams.get('start');
         const botName = urlParams.get('bot');
 
-        // Wapas Telegram bot par FSub aur file ke liye bhejna
-        const tgLink = `tg://resolve?domain=${botName}&start=${startParam}`;
+        // Fallback agar koi direct page khol le
+        if (!startParam || !botName) {
+            document.querySelector('.container').innerHTML = "<h1>⚠️ Invalid Link</h1><p>Please open files directly from the Telegram Bot.</p>";
+        } else {
+            const tgLink = `tg://resolve?domain=${botName}&start=${startParam}`;
 
-        // Button click event
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            window.location.href = tgLink;
-        });
+            // Button click hone par Popunder trigger hoga aur user bot par wapas chala jayega
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                window.location.href = tgLink;
+            });
+        }
     </script>
 
 </body>
