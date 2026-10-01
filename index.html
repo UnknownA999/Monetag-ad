@@ -44,23 +44,29 @@
     </div>
 
     <script>
-        // URL se payload aur bot ka naam nikal kar Telegram Deep Link banana
-        const urlParams = new URLSearchParams(window.location.search);
+        // URL read karne ka smart tareeqa (Redirects aur Hash dono handle karega)
+        let searchString = window.location.search;
+        if (!searchString && window.location.hash.includes('?')) {
+            searchString = window.location.hash.substring(window.location.hash.indexOf('?'));
+        }
+        
+        const urlParams = new URLSearchParams(searchString);
         const startParam = urlParams.get('start');
-        const botName = urlParams.get('bot');
+        // Agar URL mein bot name cut ho jaye, toh default tumhare bot ka username use karega
+        const botName = urlParams.get('bot') || "GoogleBookxSearchBot"; 
 
-        // Fallback agar koi direct page khol le
-        if (!startParam || !botName) {
-            document.querySelector('.container').innerHTML = "<h1>⚠️ Invalid Link</h1><p>Please open files directly from the Telegram Bot.</p>";
+        if (!startParam) {
+            // Error ke sath actual URL bhi dikhayega taaki debugging aasan ho
+            document.querySelector('.container').innerHTML = `<h1>⚠️ Invalid Link</h1><p>Missing Data. Please search again in Telegram.</p><p style="font-size:10px; color:#555;">Debug: ${window.location.href}</p>`;
         } else {
             const tgLink = `tg://resolve?domain=${botName}&start=${startParam}`;
 
-            // Button click hone par Popunder trigger hoga aur user bot par wapas chala jayega
             document.getElementById('downloadBtn').addEventListener('click', function() {
                 window.location.href = tgLink;
             });
         }
     </script>
+
 
 </body>
 </html>
