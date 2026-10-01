@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Ready - Redirecting...</title>
+
+    <!-- ⚠️ PASTE YOUR MONETAG SCRIPT HERE ⚠️ -->
+    <!-- Example: <script src="//monetag.com/xyz"></script> -->
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; height: 100vh; margin: 0;
+        }
+        .container {
+            text-align: center; background: #1e1e1e; padding: 40px;
+            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            max-width: 400px; width: 90%;
+        }
+        h1 { color: #4CAF50; font-size: 24px; }
+        p { color: #b3b3b3; font-size: 14px; margin-bottom: 30px; }
+        .btn {
+            background: #0088cc; color: white; padding: 15px 30px;
+            text-decoration: none; border-radius: 8px; font-size: 18px;
+            font-weight: bold; display: inline-block; cursor: pointer;
+            width: 100%; border: none; transition: 0.3s;
+        }
+        .btn:hover { background: #0077b3; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📥 File is Ready!</h1>
+        <p>Click the button below to open your file securely in Telegram.</p>
+        <button class="btn" id="downloadBtn">Open in Telegram</button>
+    </div>
+
+    <script>
+        // URL se payload aur bot ka naam nikalna
+        const urlParams = new URLSearchParams(window.location.search);
+        const startParam = urlParams.get('start');
+        const botName = urlParams.get('bot');
+
+        // Wapas Telegram bot par FSub aur file ke liye bhejna
+        const tgLink = `tg://resolve?domain=${botName}&start=${startParam}`;
+
+        // Button click event
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            window.location.href = tgLink;
+        });
+    </script>
+
+</body>
+</html>
